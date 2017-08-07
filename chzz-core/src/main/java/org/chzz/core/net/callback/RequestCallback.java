@@ -16,20 +16,20 @@ import retrofit2.Response;
  * Date: 2017-08-06
  * Time: 下午3:30
  */
-public class RequestCallbacks implements Callback<String> {
+public class RequestCallback implements Callback<String> {
 
     private final IRequest REQUEST;
     private final ISuccess SUCCESS;
-    private final Ifailure FAILURE;
+    private final IFailure FAILURE;
     private final IError ERROR;
     private final LoaderStyle LOADER_STYLE;
-    private static final Handler hadnler = new Handler();
+    private static final Handler handler = new Handler();
 
-    public RequestCallbacks(IRequest REQUEST, ISuccess SUCCESS, Ifailure FAILURE, IError ERROR, LoaderStyle loader_style) {
-        this.REQUEST = REQUEST;
-        this.SUCCESS = SUCCESS;
-        this.FAILURE = FAILURE;
-        this.ERROR = ERROR;
+    public RequestCallback(IRequest request, ISuccess success, IFailure failure, IError error, LoaderStyle loader_style) {
+        this.REQUEST = request;
+        this.SUCCESS = success;
+        this.FAILURE = failure;
+        this.ERROR = error;
         this.LOADER_STYLE = loader_style;
     }
 
@@ -49,7 +49,7 @@ public class RequestCallbacks implements Callback<String> {
         }
 
         if (LOADER_STYLE != null) {
-            hadnler.postDelayed(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     ChzzLoader.stopLoading();
@@ -66,6 +66,14 @@ public class RequestCallbacks implements Callback<String> {
         }
         if (REQUEST != null) {
             REQUEST.onRequestEnd();
+        }
+        if (LOADER_STYLE != null) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ChzzLoader.stopLoading();
+                }
+            }, 1000);
         }
     }
 }

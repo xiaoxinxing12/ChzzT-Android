@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.ContentFrameLayout;
 
 import org.chzz.core.R;
-import org.chzz.core.delegates.ChzzDelegage;
+import org.chzz.core.fragment.ChzzFragment;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
@@ -16,9 +16,12 @@ import me.yokeyword.fragmentation.SupportActivity;
  * Date: 2017-08-06
  * Time: 下午12:48
  */
-public abstract class ProxyActivity extends SupportActivity {
-
-public  abstract ChzzDelegage setRootDelegate();
+public abstract class BaseActivity extends SupportActivity {
+    /**
+     * 设置返回根Fragment
+     * @return
+     */
+    public abstract ChzzFragment setRootFragment();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,12 +29,17 @@ public  abstract ChzzDelegage setRootDelegate();
         initContainer(savedInstanceState);
     }
 
-    private  void initContainer(@Nullable Bundle savedInstanceState){
-        final ContentFrameLayout contentFrameLayout=new ContentFrameLayout(this);
+    /**
+     * 初始化容器 以后所有的页面全放这里了。
+     *
+     * @param savedInstanceState
+     */
+    private void initContainer(@Nullable Bundle savedInstanceState) {
+        final ContentFrameLayout contentFrameLayout = new ContentFrameLayout(this);
         contentFrameLayout.setId(R.id.delegate_container);
         setContentView(contentFrameLayout);
-        if(savedInstanceState==null){
-            loadRootFragment(R.id.delegate_container,setRootDelegate());
+        if (savedInstanceState == null) {
+            loadRootFragment(R.id.delegate_container, setRootFragment());
         }
     }
 

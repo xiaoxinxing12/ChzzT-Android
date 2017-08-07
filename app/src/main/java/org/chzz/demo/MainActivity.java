@@ -1,19 +1,13 @@
 package org.chzz.demo;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import org.chzz.core.activity.BaseActivity;
+import org.chzz.core.fragment.ChzzFragment;
 
-import com.joanzapata.iconify.fonts.FontAwesomeModule;
-
-import org.chzz.core.activity.ProxyActivity;
-import org.chzz.core.app.Chzz;
-import org.chzz.core.delegates.ChzzDelegage;
-
-public class MainActivity extends ProxyActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    public ChzzDelegage setRootDelegate() {
-        return new DemoDelegate();
+    public ChzzFragment setRootFragment() {
+        return new DemoFragment();
     }
 
 }

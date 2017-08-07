@@ -2,9 +2,7 @@ package org.chzz.demo;
 
 import android.app.Application;
 
-import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
-import com.joanzapata.iconify.fonts.IoniconsModule;
 
 import org.chzz.core.app.Chzz;
 import org.chzz.core.net.interceptors.DebugInterceptor;
@@ -22,7 +20,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Chzz.init(this)
-                .withApiHost("http://127.0.0.1")
+                .withApiHost("http://zyy.hxyiyo.com/")
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
                 .whthInterceptor(new DebugInterceptor("index",R.raw.test))

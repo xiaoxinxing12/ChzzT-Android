@@ -7,6 +7,6 @@ package org.chzz.core.net.callback;
  * Date: 2017-08-06
  * Time: 下午2:54
  */
-public interface Ifailure {
+public interface IFailure {
     void onFailure();
 }

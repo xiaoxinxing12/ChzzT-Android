@@ -4,37 +4,48 @@ import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.WeakHashMap;
 
 import okhttp3.Interceptor;
 
 /**
  * Created by copy on 2017/8/6.
- * Description:
+ * Description:  配置文件
  * User: copy
  * Date: 2017-08-06
  * Time: 上午9:57
  */
 public class Configurator {
+    //存放所有的配置
     private static final HashMap<String, Object> CHZZ_CONFIGS = new HashMap<>();
+    //存放图标文字库
     private static  final ArrayList<IconFontDescriptor> IOCNS=new ArrayList<>();
-
+   //存放拦截器数据
     private static  final  ArrayList<Interceptor> INTERCEPTORS=new ArrayList<>();
-    final HashMap<String, Object> getChzzConfigs() {
-
-        return CHZZ_CONFIGS;
-    }
 
     private Configurator() {
         CHZZ_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
     }
 
+    /**
+     *  单例模式
+     * @return
+     */
     public static Configurator getInstance() {
         return Holder.INSTANCE;
     }
 
+    /**
+     * 获取 所有配置
+     * @return
+     */
+    final HashMap<String, Object> getChzzConfigs() {
+        return CHZZ_CONFIGS;
+    }
+
+    /**
+     * 实例化配置 configurator
+     */
     private static class Holder {
         private static final Configurator INSTANCE = new Configurator();
     }
@@ -47,6 +58,11 @@ public class Configurator {
         CHZZ_CONFIGS.put(ConfigType.CONFIG_READY.name(), true);
     }
 
+    /**
+     * 配置host
+     * @param host
+     * @return
+     */
     public final Configurator withApiHost(String host) {
         CHZZ_CONFIGS.put(ConfigType.API_HOST.name(), host);
         return this;
@@ -73,6 +89,11 @@ public class Configurator {
         return this;
     }
 
+    /**
+     * 拦截器
+     * @param interceptor
+     * @return
+     */
     public final  Configurator whthInterceptor(ArrayList<Interceptor> interceptor){
         INTERCEPTORS.addAll(interceptor);
         CHZZ_CONFIGS.put(ConfigType.INTERCEPTORS.name(),INTERCEPTORS);
@@ -85,7 +106,6 @@ public class Configurator {
      */
     private void checkConfiguration() {
         final boolean isReady = (boolean) CHZZ_CONFIGS.get(ConfigType.CONFIG_READY.name());
-
         if (!isReady) {
             throw new RuntimeException("配置没有完成");
         }

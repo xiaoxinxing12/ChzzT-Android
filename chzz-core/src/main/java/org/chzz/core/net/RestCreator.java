@@ -24,43 +24,51 @@ public class RestCreator {
     public static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
 
     public static RestService getRestService() {
-        return RestServiceHoloder.REST_SERVICE;
+        return RestServiceHolder.REST_SERVICE;
     }
 
+    /**
+     * 设置retrofit2
+     */
     private static final class RetrofitHolder {
+        //服务器的URL
         private static final String BASE_URL = (String) Chzz.getConfigurations().get(ConfigType.API_HOST.name());
+        //构建  retrofit2
         private static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .client(OkhttpHolader.OK_HTTP_CLIENT)
+                .client(okHttpHolder.OK_HTTP_CLIENT)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
-
-
-        private static final class OkhttpHolader {
-            private static final int TIME_OUT = 60;
-            private static  final  OkHttpClient.Builder BUILDER =new OkHttpClient.Builder();
-            private static final ArrayList<Interceptor> INTERCEPTORS = Chzz.getConfiguration(ConfigType.INTERCEPTORS);
-
-            private static OkHttpClient.Builder addInterceptor(){
-                if(INTERCEPTORS!=null&&!INTERCEPTORS.isEmpty()){
-                    for(Interceptor interceptor:INTERCEPTORS){
-                        BUILDER.addInterceptor(interceptor);
-                    }
-                }
-                return BUILDER;
-            }
-
-            private static final OkHttpClient OK_HTTP_CLIENT = addInterceptor()
-                    .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-                    .build();
-//            private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
-//                    .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-//                    .build();
-        }
-
     }
 
-    private static final class RestServiceHoloder {
+    /**
+     * okHttp设置
+     */
+    private static final class okHttpHolder {
+        //超时时间
+        private static final int TIME_OUT = 60;
+        //builder形式new OkHttpClient
+        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
+        //测试使用的拦截器
+        private static final ArrayList<Interceptor> INTERCEPTORS = Chzz.getConfiguration(ConfigType.INTERCEPTORS);
+
+        private static final OkHttpClient OK_HTTP_CLIENT = BUILDER
+                .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+                .build();
+
+        //为okHttp增加拦截器
+        private static OkHttpClient.Builder addInterceptor() {
+            if (INTERCEPTORS != null && !INTERCEPTORS.isEmpty()) {
+                for (Interceptor interceptor : INTERCEPTORS) {
+                    BUILDER.addInterceptor(interceptor);
+                }
+            }
+            return BUILDER;
+        }
+    }
+
+
+    private static final class RestServiceHolder {
         private static final RestService REST_SERVICE = RetrofitHolder.RETROFIT_CLIENT.create(RestService.class);
     }
 }

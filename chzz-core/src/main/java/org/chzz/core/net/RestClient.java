@@ -5,8 +5,8 @@ import android.content.Context;
 import org.chzz.core.net.callback.IError;
 import org.chzz.core.net.callback.IRequest;
 import org.chzz.core.net.callback.ISuccess;
-import org.chzz.core.net.callback.Ifailure;
-import org.chzz.core.net.callback.RequestCallbacks;
+import org.chzz.core.net.callback.IFailure;
+import org.chzz.core.net.callback.RequestCallback;
 import org.chzz.core.ui.ChzzLoader;
 import org.chzz.core.ui.LoaderStyle;
 
@@ -29,22 +29,31 @@ import retrofit2.Callback;
  */
 public class RestClient {
 
+    //请求接口地址
     private final String URL;
+    //请求参数  Map<>形式
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.PARAMS;
-
+    //开始或结束回调
     private final IRequest REQUEST;
+    //请求成功回调
     private final ISuccess SUCCESS;
-    private final Ifailure FAILURE;
+    //请求失败回调
+    private final IFailure FAILURE;
+    //请求错误
     private final IError ERROR;
+    //原形参数 body
     private final RequestBody BODY;
-    private final LoaderStyle LOADER_STYPE;
+    //加载图标样式
+    private final LoaderStyle LOADER_STYLE;
+    //上下文
     private final Context CONTEXT;
+    //上传的文件
     private final File FILE;
 
     public RestClient(String URL, Map<String, Object> params,
                       IRequest request, ISuccess success,
-                      Ifailure failure, IError error,
-                      RequestBody body, File file, LoaderStyle loader_stype, Context context) {
+                      IFailure failure, IError error,
+                      RequestBody body, File file, LoaderStyle loader_style, Context context) {
         this.URL = URL;
         this.PARAMS.putAll(params);
         this.REQUEST = request;
@@ -53,7 +62,7 @@ public class RestClient {
         this.FILE = file;
         this.ERROR = error;
         this.BODY = body;
-        this.LOADER_STYPE = loader_stype;
+        this.LOADER_STYLE = loader_style;
         this.CONTEXT = context;
     }
 
@@ -62,15 +71,21 @@ public class RestClient {
         return new RestClientBuilder();
     }
 
-    private void requset(HttpMethod method) {
+    /**
+     * 判断使用什么方法请求
+     * @param method
+     */
+    private void request(HttpMethod method) {
         final RestService service = RestCreator.getRestService();
+        //回调
         Call<String> call = null;
-
         if (REQUEST != null) {
-            REQUEST.onRequestSart();
+            //请求开始
+            REQUEST.onRequestStart();
         }
-        if (LOADER_STYPE != null) {
-            ChzzLoader.showLoading(CONTEXT, LOADER_STYPE);
+        if (LOADER_STYLE != null) {
+            //显示加载图标
+            ChzzLoader.showLoading(CONTEXT, LOADER_STYLE);
         }
         switch (method) {
             case GET:
@@ -107,38 +122,44 @@ public class RestClient {
 
     private Callback<String> getRequestCallBack() {
 
-        return new RequestCallbacks(REQUEST, SUCCESS, FAILURE, ERROR, LOADER_STYPE);
+        return new RequestCallback(REQUEST, SUCCESS, FAILURE, ERROR, LOADER_STYLE);
     }
 
+    /**
+     * get请求
+     */
     public final void get() {
-        requset(HttpMethod.GET);
+        request(HttpMethod.GET);
     }
 
+    /**
+     * post 请求
+     */
     public final void post() {
         if (BODY == null) {
-            requset(HttpMethod.POST);
+            request(HttpMethod.POST);
         } else {
             if (!PARAMS.isEmpty()) {
                 throw new RuntimeException("参数错误");
             }
-            requset(HttpMethod.POST_RAW);
+            request(HttpMethod.POST_RAW);
         }
 
     }
 
     public final void put() {
         if (BODY == null) {
-            requset(HttpMethod.PUT);
+            request(HttpMethod.PUT);
         } else {
             if (!PARAMS.isEmpty()) {
                 throw new RuntimeException("参数错误");
             }
-            requset(HttpMethod.PUT_RAW);
+            request(HttpMethod.PUT_RAW);
         }
 
     }
 
     public final void delete() {
-        requset(HttpMethod.DELETE);
+        request(HttpMethod.DELETE);
     }
 }

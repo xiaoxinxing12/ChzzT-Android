@@ -63,8 +63,8 @@ public class ChzzLoader {
      * 关闭所有dialog
      */
     public static void stopLoading() {
-        for (AppCompatDialog dialog : LOADERS) {
-            if (null != dialog) {
+        if (null != LOADERS && LOADERS.size() > 0) {
+            for (AppCompatDialog dialog : LOADERS) {
                 if (dialog.isShowing()) {
                     dialog.cancel();
                 }

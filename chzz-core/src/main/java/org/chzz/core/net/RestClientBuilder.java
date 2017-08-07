@@ -5,7 +5,7 @@ import android.content.Context;
 import org.chzz.core.net.callback.IError;
 import org.chzz.core.net.callback.IRequest;
 import org.chzz.core.net.callback.ISuccess;
-import org.chzz.core.net.callback.Ifailure;
+import org.chzz.core.net.callback.IFailure;
 import org.chzz.core.ui.LoaderStyle;
 
 import java.io.File;
@@ -22,15 +22,25 @@ import okhttp3.RequestBody;
  * Time: 下午3:00
  */
 public class RestClientBuilder {
+    //请求接口地址
     private String mUrl;
+    //请求参数  Map<>形式
     private static final Map<String, Object> PARAMS = RestCreator.PARAMS;
+    //开始或结束回调
     private IRequest mRequest;
+    //请求成功回调
     private ISuccess mSuccess;
-    private Ifailure mFailure;
+    //请求失败回调
+    private IFailure mFailure;
+    //请求错误回调
     private IError mError;
+    //原形参数 body
     private RequestBody mBody;
+    //上下文
     private Context context;
+    //加载图标样式
     private LoaderStyle loaderStyle;
+    //上传的文件
     private File file;
 
     public RestClientBuilder() {
@@ -53,7 +63,6 @@ public class RestClientBuilder {
         return this;
     }
     public final RestClientBuilder file(String file) {
-
         this.file=new File(file);
         return this;
     }
@@ -78,8 +87,8 @@ public class RestClientBuilder {
         return this;
     }
 
-    public final RestClientBuilder failure(Ifailure ifailure) {
-        this.mFailure = ifailure;
+    public final RestClientBuilder failure(IFailure IFailure) {
+        this.mFailure = IFailure;
         return this;
     }
 

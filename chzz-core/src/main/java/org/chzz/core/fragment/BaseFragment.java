@@ -1,4 +1,4 @@
-package org.chzz.core.delegates;
+package org.chzz.core.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,11 +17,22 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
  * Date: 2017-08-06
  * Time: 下午12:49
  */
-public abstract class BaseDelegate extends SwipeBackFragment {
+public abstract class BaseFragment extends SwipeBackFragment {
     private Unbinder mUnbinder = null;
 
+    /**
+     * 设置布局文件
+     * @return
+     */
     public abstract Object setLayout();
-  public  abstract  void onBindView(@Nullable Bundle savedInstanceState,View view);
+
+    /**
+     *
+     * @param savedInstanceState
+     * @param view
+     */
+    public abstract void onBindView(@Nullable Bundle savedInstanceState, View view);
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,18 +44,15 @@ public abstract class BaseDelegate extends SwipeBackFragment {
         }
         if (view != null) {
             mUnbinder = ButterKnife.bind(this, view);
-            onBindView(savedInstanceState,view);
+            onBindView(savedInstanceState, view);
         }
-
-
         return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        if(mUnbinder!=null){
+        if (mUnbinder != null) {
             mUnbinder.unbind();
         }
     }

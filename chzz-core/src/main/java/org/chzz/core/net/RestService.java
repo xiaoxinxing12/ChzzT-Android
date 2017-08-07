@@ -21,7 +21,7 @@ import retrofit2.http.Url;
 
 /**
  * Created by copy on 2017/8/6.
- * Description:
+ * Description: retrofit2请求方法
  * User: copy
  * Date: 2017-08-06
  * Time: 下午1:40
