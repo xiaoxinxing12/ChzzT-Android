@@ -1,7 +1,9 @@
 package org.chzz.core.net.callback;
 
 import android.os.Handler;
+import android.widget.Toast;
 
+import org.chzz.core.app.Chzz;
 import org.chzz.core.ui.ChzzLoader;
 import org.chzz.core.ui.LoaderStyle;
 
@@ -39,7 +41,18 @@ public class RequestCallback implements Callback<String> {
         if (response.isSuccessful()) {
             if (call.isExecuted()) {
                 if (SUCCESS != null) {
-                    SUCCESS.onSuccess(response.body());
+                    try{
+                        if(null==SUCCESS.getEntity()){
+                            SUCCESS.onSuccess(response.body());
+                        }else {
+                            SUCCESS.onSuccess(GsonTools.jsonToBean(response.body(),SUCCESS.getEntity().getClass()));
+                        }
+                    }catch (Exception e){
+                        Toast.makeText(Chzz.getApplication(),e.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                    }
+
+                }else {
+                    Toast.makeText(Chzz.getApplication(),"请设置回调接口",Toast.LENGTH_SHORT).show();
                 }
             }
         } else {

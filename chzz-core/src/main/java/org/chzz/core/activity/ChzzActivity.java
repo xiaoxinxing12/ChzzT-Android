@@ -16,7 +16,7 @@ import me.yokeyword.fragmentation.SupportActivity;
  * Date: 2017-08-06
  * Time: 下午12:48
  */
-public abstract class BaseActivity extends SupportActivity {
+public abstract class ChzzActivity extends SupportActivity {
     /**
      * 设置返回根Fragment
      * @return

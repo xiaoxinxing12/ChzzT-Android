@@ -2,7 +2,7 @@ package org.chzz.core.net.interceptors;
 
 import android.support.annotation.RawRes;
 
-import org.chzz.core.utils.file.FileUtil;
+import org.chzz.core.util.file.FileUtil;
 
 import java.io.IOException;
 

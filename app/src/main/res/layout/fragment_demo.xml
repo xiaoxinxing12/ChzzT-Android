@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_toolbar" />
+
+    <Button
+        android:id="@+id/but_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:text=" 任意同栈内的Fragment中：
+    HomeFragment fragment = findFragment(HomeFragment.class);
+    Bundle newBundle = new Bundle();
+    ...
+    fragment.putNewBundle(newBundle);
+    // 在栈内的HomeFragment以SingleTask模式启动（即在其之上的Fragment会出栈）
+    start(fragment, SupportFragment.SINGLETASK);
+
+public class HomeFragment extends SupportFragment{
+    @Override
+    protected void onNewBundle(Bundle newBundle){
+        // 在此可以接收到SINGLETASK/SINGTOP启动模式传递的数据  类似Activity中的onNewIntent()
+    }"
+        android:layout_height="wrap_content" />
+</LinearLayout>

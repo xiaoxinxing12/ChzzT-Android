@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.chzz.core.R;
-import org.chzz.core.utils.DimenUtil;
+import org.chzz.core.util.DimenUtil;
 
 import java.util.ArrayList;
 

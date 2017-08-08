@@ -5,8 +5,8 @@ import android.app.Application;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 import org.chzz.core.app.Chzz;
-import org.chzz.core.net.interceptors.DebugInterceptor;
-import org.chzz.ec.icon.FontEcModule;
+
+import me.yokeyword.fragmentation.Fragmentation;
 
 /**
  * Created by copy on 2017/8/6.
@@ -22,8 +22,12 @@ public class App extends Application {
         Chzz.init(this)
                 .withApiHost("http://zyy.hxyiyo.com/")
                 .withIcon(new FontAwesomeModule())
-                .withIcon(new FontEcModule())
-                .whthInterceptor(new DebugInterceptor("index",R.raw.test))
                 .configure();
+
+        Fragmentation.builder()
+                // 显示悬浮球 ; 其他Mode:SHAKE: 摇一摇唤出   NONE：隐藏
+                .stackViewMode(Fragmentation.BUBBLE)
+                .debug(BuildConfig.DEBUG)// 更多查看wiki或demo
+                .install();
     }
 }

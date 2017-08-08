@@ -1,13 +1,11 @@
 package org.chzz.core.net.interceptors;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by copy on 2017/8/6.

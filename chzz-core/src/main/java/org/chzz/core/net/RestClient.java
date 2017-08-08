@@ -3,9 +3,9 @@ package org.chzz.core.net;
 import android.content.Context;
 
 import org.chzz.core.net.callback.IError;
+import org.chzz.core.net.callback.IFailure;
 import org.chzz.core.net.callback.IRequest;
 import org.chzz.core.net.callback.ISuccess;
-import org.chzz.core.net.callback.IFailure;
 import org.chzz.core.net.callback.RequestCallback;
 import org.chzz.core.ui.ChzzLoader;
 import org.chzz.core.ui.LoaderStyle;

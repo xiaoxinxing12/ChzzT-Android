@@ -7,8 +7,7 @@ package org.chzz.core.net.callback;
  * Date: 2017-08-06
  * Time: 下午2:53
  */
-public interface ISuccess {
-
-    void onSuccess(String response);
-
+public interface ISuccess<T> {
+    void onSuccess(T response);
+    T getEntity();
 }

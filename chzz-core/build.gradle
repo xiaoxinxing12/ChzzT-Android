@@ -26,20 +26,25 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.+'
+    compile 'com.android.support:design:25+'
     testCompile 'junit:junit:4.12'
-    compile project(':chzz-annotations')
+
+
     //字体图标库
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
     compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
     //fragment 的依赖
     compile 'me.yokeyword:fragmentation:1.1.0'
     compile 'me.yokeyword:fragmentation-swipeback:1.1.0'
+    compile 'me.yokeyword:fragmentation:1.1.1'
+    //注解
     compile 'com.jakewharton:butterknife:8.8.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
     //ui相关
     compile 'com.wang.avi:library:2.1.3'
