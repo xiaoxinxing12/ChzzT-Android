@@ -39,7 +39,7 @@ public abstract class ChzzFragment extends SwipeBackFragment {
     /**
      * 一般监听就设在这里吧
      */
-    protected abstract void setListener();
+    protected  void setListener(){};
     /**
      * 当fragment对用户可见时，会调用该方法，可在该方法中懒加载网络数据
      */

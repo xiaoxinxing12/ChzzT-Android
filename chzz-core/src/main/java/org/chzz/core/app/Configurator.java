@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by copy on 2017/8/6.
@@ -83,7 +84,7 @@ public class Configurator {
      * @param interceptor
      * @return
      */
-    public final  Configurator whthInterceptor(Interceptor interceptor){
+    public final  Configurator withInterceptor(Interceptor interceptor){
         INTERCEPTORS.add(interceptor);
         CHZZ_CONFIGS.put(ConfigType.INTERCEPTORS.name(),INTERCEPTORS);
         return this;
@@ -94,12 +95,20 @@ public class Configurator {
      * @param interceptor
      * @return
      */
-    public final  Configurator whthInterceptor(ArrayList<Interceptor> interceptor){
+    public final  Configurator withInterceptor(ArrayList<Interceptor> interceptor){
         INTERCEPTORS.addAll(interceptor);
         CHZZ_CONFIGS.put(ConfigType.INTERCEPTORS.name(),INTERCEPTORS);
         return this;
     }
-
+    /**
+     * 自定义OK http
+     * @param
+     * @return
+     */
+    public final  Configurator withOkHttpClient(OkHttpClient okHttpClient){
+        CHZZ_CONFIGS.put(ConfigType.OKHTTPCLIENT.name(),okHttpClient);
+        return this;
+    }
 
     /**
      * 检查配置是否完成

@@ -59,6 +59,7 @@ public class RequestCallback implements Callback<String> {
             if (ERROR != null) {
                 ERROR.onError(response.code(), response.message());
             }
+            Toast.makeText(Chzz.getApplication(),response.message(),Toast.LENGTH_SHORT).show();
         }
 
         if (LOADER_STYLE != null) {
@@ -67,7 +68,7 @@ public class RequestCallback implements Callback<String> {
                 public void run() {
                     ChzzLoader.stopLoading();
                 }
-            }, 1000);
+            }, 0);
         }
     }
 
@@ -88,5 +89,6 @@ public class RequestCallback implements Callback<String> {
                 }
             }, 1000);
         }
+        Toast.makeText(Chzz.getApplication(),t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
     }
 }

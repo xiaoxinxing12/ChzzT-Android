@@ -1,7 +1,10 @@
 package org.chzz.core.net;
 
+
 import org.chzz.core.app.Chzz;
 import org.chzz.core.app.ConfigType;
+import org.chzz.core.net.cookie.CookiesManager;
+
 
 import java.util.ArrayList;
 import java.util.WeakHashMap;
@@ -33,10 +36,11 @@ public class RestCreator {
     private static final class RetrofitHolder {
         //服务器的URL
         private static final String BASE_URL = (String) Chzz.getConfigurations().get(ConfigType.API_HOST.name());
+        private static final OkHttpClient client = (OkHttpClient) Chzz.getConfigurations().get(ConfigType.OKHTTPCLIENT.name());
         //构建  retrofit2
         private static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .client(okHttpHolder.OK_HTTP_CLIENT)
+                .client(client==null?okHttpHolder.OK_HTTP_CLIENT: client)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
     }
@@ -54,6 +58,7 @@ public class RestCreator {
 
         private static final OkHttpClient OK_HTTP_CLIENT = BUILDER
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+                .cookieJar(new CookiesManager(Chzz.getApplication()))
                 .build();
 
         //为okHttp增加拦截器

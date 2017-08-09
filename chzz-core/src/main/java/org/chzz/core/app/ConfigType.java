@@ -12,6 +12,7 @@ public enum ConfigType {
     APPLICATION_CONTEXY,
     CONFIG_READY,
     ICON,
-    INTERCEPTORS
+    INTERCEPTORS,
+    OKHTTPCLIENT
 
 }
