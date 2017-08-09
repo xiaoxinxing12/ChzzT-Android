@@ -1,4 +1,4 @@
-package org.chzz.demo.activity;
+package org.chzz.demo.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

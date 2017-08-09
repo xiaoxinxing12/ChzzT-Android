@@ -1,4 +1,4 @@
-package org.chzz.demo.fragment;
+package org.chzz.demo.ui.fragment;
 
 import android.support.v7.widget.Toolbar;
 import android.view.View;

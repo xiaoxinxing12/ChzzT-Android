@@ -1,11 +1,11 @@
-package org.chzz.demo.activity;
+package org.chzz.demo.ui.activity;
 
 import android.widget.Toast;
 
 import org.chzz.core.activity.ChzzActivity;
 import org.chzz.core.fragment.ChzzFragment;
 import org.chzz.demo.R;
-import org.chzz.demo.fragment.DemoFragment;
+import org.chzz.demo.ui.fragment.MainFragment;
 
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
@@ -17,7 +17,7 @@ public class MainActivity extends ChzzActivity {
 
     @Override
     public ChzzFragment setRootFragment() {
-        return new DemoFragment();
+        return MainFragment.newInstance();
     }
 
     @Override
